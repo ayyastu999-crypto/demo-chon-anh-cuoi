@@ -1,0 +1,14 @@
+{
+  "name": "demo-chon-anh-cuoi",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Demo app khách chọn ảnh cưới, ảnh lấy thẳng từ thư mục Google Drive",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dat-mat-khau": "node scripts/dat-mat-khau-studio.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}

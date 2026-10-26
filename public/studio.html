@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dự án · Chọn ảnh cưới</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/studio.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side" aria-label="Điều hướng">
+    <div class="brand"><span class="logo">S</span><div><b>Chọn ảnh</b><small>Studio cưới · bản demo</small></div></div>
+    <nav class="nav"><a href="/" class="on" aria-current="page" id="navDuAn"></a></nav>
+    <p class="note">Ảnh nằm trên Google Drive. App chỉ đọc, không sửa hay xoá ảnh.</p>
+    <button class="btn ghost thoat" data-dang-xuat>Đăng xuất</button>
+  </aside>
+
+  <main class="main" id="main">
+    <div class="mbrand"><span class="logo">S</span><b>Chọn ảnh</b><button class="btn ghost" data-dang-xuat style="margin-left:auto">Đăng xuất</button></div>
+    <header class="top">
+      <div><h1>Dự án</h1><p>Theo dõi từng album từ lúc gửi khách tới lúc giao ảnh.</p></div>
+      <button class="btn pri" data-mo="tao" id="btnTao"></button>
+    </header>
+
+    <section class="stats" id="stats" aria-label="Tổng quan"></section>
+
+    <div class="tools">
+      <div class="search"><label class="sr" for="q">Tìm album</label><span id="icSearch"></span><input id="q" type="search" placeholder="Tìm theo tên cô dâu, chú rể…" autocomplete="off"></div>
+      <div class="chips" id="chips" role="tablist" aria-label="Lọc theo trạng thái"></div>
+    </div>
+
+    <section class="grid" id="list" aria-live="polite"></section>
+  </main>
+</div>
+
+<button class="btn pri fab" data-mo="tao" id="fab"></button>
+
+<dialog class="dlg" id="dlgForm" aria-labelledby="formTitle">
+  <div class="dh"><h2 id="formTitle">Tạo album</h2><button class="icon-btn" data-dong aria-label="Đóng"></button></div>
+  <form class="f" id="f" novalidate>
+    <label for="fLink">Link thư mục ảnh trên Google Drive <small>— chia sẻ “Bất kỳ ai có đường liên kết đều xem được”</small></label>
+    <input id="fLink" name="linkDrive" type="url" inputmode="url" placeholder="https://drive.google.com/drive/folders/…" required>
+    <label for="fLinkSua">Link thư mục ảnh đã chỉnh <small>— dán sau khi chỉnh xong, khách sẽ thấy tab “Ảnh đã chỉnh” để so sánh và duyệt</small></label>
+    <input id="fLinkSua" name="linkDriveDaChinh" type="url" inputmode="url" placeholder="Để trống nếu chưa chỉnh xong">
+    <div class="g2">
+      <div><label for="fTen">Tên cô dâu &amp; chú rể <small>— có “&amp;” ở giữa</small></label><input id="fTen" name="coDauChuRe" placeholder="Minh Anh & Gia Huy" required></div>
+      <div><label for="fCuoi">Ngày cưới</label><input id="fCuoi" name="ngayCuoi" type="date"></div>
+    </div>
+    <fieldset class="fs"><legend>Liên hệ và hẹn trả</legend>
+      <div class="g3">
+        <div><label for="fZalo">SĐT Zalo khách</label><input id="fZalo" name="sdtZalo" type="tel" inputmode="tel" autocomplete="tel" placeholder="0901 234 567"></div>
+        <div><label for="fHen">Ngày hẹn trả ảnh</label><input id="fHen" name="ngayHenTra" type="date"></div>
+        <div><label for="fLuu">Lưu ảnh đến ngày <small>— trống = không hạn</small></label><input id="fLuu" name="hanLuu" type="date"></div>
+      </div>
+    </fieldset>
+    <label for="fNhan">Lời nhắn cho khách <small>— để trống dùng lời chào có sẵn</small></label>
+    <textarea id="fNhan" name="loiNhan" rows="2" placeholder="Chúc hai bạn trăm năm hạnh phúc! Mời hai bạn chọn những khoảnh khắc mình yêu nhất."></textarea>
+    <label for="fNhac">Nhạc nền <small>— link file mp3, để trống dùng nhạc cưới mặc định</small></label>
+    <input id="fNhac" name="nhacNen" type="url" inputmode="url" placeholder="https://…/bai-hat.mp3">
+    <fieldset class="fs"><legend>Hạn mức theo gói <small style="text-transform:none;letter-spacing:0;font-weight:400">— để trống là không giới hạn</small></legend>
+      <div class="quota" id="quota"></div>
+    </fieldset>
+    <p class="ferr" id="ferr" role="alert" hidden></p>
+    <div class="fact"><button type="button" class="btn sec" data-dong>Huỷ</button><button class="btn pri" id="fSubmit">Tạo album</button></div>
+  </form>
+</dialog>
+
+<dialog class="drawer" id="dlgRes" aria-labelledby="resTitle">
+  <div class="dh"><h2 id="resTitle">Kết quả</h2><button class="icon-btn" data-dong aria-label="Đóng"></button></div>
+  <div class="res" id="res"></div>
+</dialog>
+
+<dialog class="drawer gy-drawer" id="dlgGy" aria-labelledby="gyTitle">
+  <div class="dh"><h2 id="gyTitle">Góp ý</h2><button class="icon-btn" data-dong aria-label="Đóng"></button></div>
+  <div class="res" id="gyBox"></div>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="/icons.js"></script>
+<script src="/studio-form.js"></script>
+<script src="/studio.js"></script>
+<script src="/studio-gop-y.js"></script>
+</body>
+</html>

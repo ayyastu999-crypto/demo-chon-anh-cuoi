@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#4A1512">
+<title>Wedding Album</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/khach.css">
+</head>
+<body>
+<section id="hero">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-ov"></div>
+  <div class="hero-fr"></div>
+  <span class="logo" aria-hidden="true">S</span>
+  <div class="hero-c">
+    <p class="wa">WEDDING ALBUM</p>
+    <h1><span id="ten1"></span><span class="amp" id="amp">&amp;</span><span id="ten2"></span></h1>
+    <div class="mo" aria-hidden="true"><b></b><i></i><b></b></div>
+    <p class="dt" id="ngay"></p>
+    <p class="ty" id="loiNhan"></p>
+    <button class="bg" id="btnXem">XEM BỘ ẢNH</button>
+    <button class="bo" id="btnHd">HƯỚNG DẪN CHỌN ẢNH</button>
+  </div>
+</section>
+
+<button id="nhac" class="nhac" aria-label="Bật nhạc nền" aria-pressed="false"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span id="nhacIc"></span></button>
+<audio id="audio" loop preload="none"></audio>
+
+<main id="main">
+  <div id="bar">
+    <div class="bar-in">
+      <div class="bar-top"><p class="tong"><b id="soChon">0</b> ảnh đã chọn</p>
+        <div class="tabs" role="tablist" id="tabs" aria-label="Lọc ảnh"></div></div>
+      <div class="nguoi-bar" id="nguoiBar"></div>
+      <div class="khos" id="khos"></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <ol class="steps" id="steps" aria-label="Tiến độ album"></ol>
+    <p class="help" id="help"></p>
+    <div id="groups"></div>
+  </div>
+</main>
+
+<button id="btnXong"></button>
+<button id="btnDuyet"></button>
+
+<div id="lb" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn" hidden>
+  <div class="lb-top"><span id="lbTen"></span><button id="lbDong" class="lb-x" aria-label="Đóng"></button></div>
+  <div class="lb-img"><button class="nav" id="lbTruoc" aria-label="Ảnh trước"></button>
+    <div class="khung" id="lbKhung"><img id="lbAnh" alt=""><div class="lop" id="lbLop"></div>
+      <div class="lop-ss" id="lbSs" hidden><img id="lbGoc" alt="Ảnh gốc trước khi chỉnh"><i class="ss-tay" aria-hidden="true"></i>
+        <span class="ss-nhan trai">TRƯỚC</span><span class="ss-nhan phai">SAU</span></div></div>
+    <button class="nav" id="lbSau" aria-label="Ảnh sau"></button></div>
+  <div class="lb-bot">
+    <button id="lbChon" class="sel"></button>
+    <p class="lb-ai" id="lbAi"></p>
+    <div class="ss" id="ss" hidden>
+      <button id="ssNut" class="ss-nut" aria-pressed="false"></button>
+      <div id="ssThanhWrap" hidden><label class="lb-h" for="ssThanh">Kéo để so sánh trước / sau</label>
+        <input type="range" id="ssThanh" min="0" max="100" value="50"></div>
+    </div>
+    <p class="lb-h" id="khoTieuDe">Gắn khổ in cho ảnh này</p>
+    <div class="lb-khos" id="lbKhos"></div>
+    <section class="gy" aria-labelledby="gyTieuDe">
+      <div class="gy-top"><p class="lb-h" id="gyTieuDe">Góp ý cho studio</p>
+        <div class="gy-nut"><button id="gyGhim" aria-pressed="false"></button><button id="gyChung"></button></div></div>
+      <p class="gy-goi" id="gyGoi" hidden>Chạm vào đúng chỗ trên ảnh cần sửa để ghim góp ý.</p>
+      <form class="gy-form" id="gyForm" hidden>
+        <p class="gy-vi" id="gyVi"></p>
+        <label class="gy-ten" id="gyTenNhan" for="gyTen">Tên của anh/chị <small>(để studio biết ai góp ý)</small></label>
+        <input id="gyTen" maxlength="40" placeholder="Ví dụ: Cô dâu Minh Anh" autocomplete="name">
+        <label class="sr" for="gyNoiDung">Nội dung góp ý</label>
+        <textarea id="gyNoiDung" rows="3" maxlength="1000" placeholder="Ví dụ: làm thon giúp em bắp tay chỗ này"></textarea>
+        <div class="gy-fact"><button type="button" class="lk" id="gyHuy">Huỷ</button><button class="go" id="gyGui">Gửi góp ý</button></div>
+      </form>
+      <ol class="gy-list" id="gyList"></ol>
+    </section>
+    <p class="lb-tb" id="lbTb" role="status" aria-live="polite" hidden></p>
+    <p class="lb-cnt" id="lbCnt"></p>
+  </div>
+</div>
+
+<div id="hd" class="modal" role="dialog" aria-modal="true" aria-labelledby="hdTitle" hidden><div class="mbox">
+  <div class="mtop"><p class="mh" id="hdBuoc"></p><button class="lk" id="hdDong" aria-label="Đóng hướng dẫn"></button></div>
+  <div id="hdNd"></div>
+  <div class="dots" id="hdDots"></div>
+  <div class="mb"><button class="lk" id="hdTruoc">← Quay lại</button><button class="go" id="hdSau">Tiếp theo →</button></div>
+</div></div>
+
+<div id="xong" class="modal" role="dialog" aria-modal="true" aria-labelledby="xongTieuDe" hidden><div class="mbox">
+  <p class="mh">XÁC NHẬN</p><h2 id="xongTieuDe"></h2><p id="xongNd"></p>
+  <div class="mb"><button class="lk" id="xongHuy">Chọn tiếp</button><button class="go" id="xongOk">Gửi studio</button></div>
+</div></div>
+
+<div id="ai" class="modal" role="dialog" aria-modal="true" aria-labelledby="aiTitle" hidden><div class="mbox">
+  <p class="mh">ĐỂ STUDIO BIẾT AI CHỌN ẢNH NÀO</p><h2 id="aiTitle">Anh/chị là…</h2>
+  <div class="ai-chon"><button data-ai="co-dau">Cô dâu</button><button data-ai="chu-re">Chú rể</button>
+    <button data-ai="nguoi-nha">Người nhà, bạn bè<small>Chỉ xem và góp ý</small></button></div>
+  <p>Mỗi người chọn trên điện thoại của mình. Ảnh cả hai cùng chọn sẽ có viền vàng.</p>
+  <div class="mb"><button class="lk" id="aiHuy">Để sau</button></div>
+</div></div>
+
+<div id="camOn" hidden><div><p class="wa">CẢM ƠN ANH CHỊ</p><h2>Studio đã nhận lựa chọn</h2><p>Anh chị vẫn có thể mở lại link này để đổi ý trước khi studio bắt đầu chỉnh ảnh.</p><button class="bo" id="camOnDong">Xem lại ảnh đã chọn</button></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<script src="/icons.js"></script>
+<script src="/khach.js"></script>
+<script src="/khach-gop-y.js"></script>
+<script src="/khach-nguoi-chon.js"></script>
+<script src="/khach-so-sanh.js"></script>
+</body>
+</html>
